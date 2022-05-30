@@ -155,7 +155,7 @@ namespace Praktikum_Week_14_Jeffri_Lieca_H_0706022110016
             this.dGVMatch.Name = "dGVMatch";
             this.dGVMatch.RowHeadersWidth = 51;
             this.dGVMatch.RowTemplate.Height = 24;
-            this.dGVMatch.Size = new System.Drawing.Size(480, 212);
+            this.dGVMatch.Size = new System.Drawing.Size(628, 212);
             this.dGVMatch.TabIndex = 14;
             // 
             // buttonPrev
@@ -192,7 +192,7 @@ namespace Praktikum_Week_14_Jeffri_Lieca_H_0706022110016
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 561);
+            this.ClientSize = new System.Drawing.Size(710, 561);
             this.Controls.Add(this.buttonLast);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrev);

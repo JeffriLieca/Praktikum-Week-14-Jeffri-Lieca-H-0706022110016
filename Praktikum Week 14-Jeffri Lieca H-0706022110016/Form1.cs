@@ -51,6 +51,24 @@ namespace Praktikum_Week_14_Jeffri_Lieca_H_0706022110016
             DataTable dtLoadGol = new DataTable();
             sqlAdapter.Fill(dtLoadGol);
             labelTopScorer.Text = dtLoadGol.Rows[0][0].ToString() + $" {dtLoadGol.Rows[0][1].ToString()}({dtLoadGol.Rows[0][2].ToString()})";
+
+            sqlQuery = "select p.player_name as WorstName, CY.poin+CR.poin as point, CY.Yellow as CarYel, CR.Red as CarRed from player p, (select d.player_id as id, sum(if(d.type='CY',1,0)) as Yellow, sum(if(d.type='CY',1,0)) as poin from dmatch d group by 1) CY, (select d.player_id as id, sum(if(d.type='CR',1,0)) as Red, sum(if(d.type='CR',3,0)) as poin from dmatch d group by 1) CR where p.player_id=CY.id and CY.id=CR.id and p.team_id='"+timID+"' order by 2 desc;";
+            sqlCommand = new MySqlCommand(sqlQuery, sqlConnect);
+            sqlAdapter = new MySqlDataAdapter(sqlCommand);
+            DataTable dtLoadPen = new DataTable();
+            sqlAdapter.Fill(dtLoadPen);
+            labelDiscipline.Text = $"{dtLoadPen.Rows[0][0].ToString()}, {dtLoadPen.Rows[0][2].ToString()} Yellow Card and {dtLoadPen.Rows[0][3].ToString()} Red Card";
+
+
+            sqlQuery = "select date_format(m.match_date, \"%d/%c/%Y\") as match_date, m.match_date as rem, 'HOME' as 'Home/Away', concat('vs ',t.team_name) as lawan, concat(m.goal_home,' - ',m.goal_away) as score from `match` m, team t where m.team_home='"+timID+"' and m.team_away=t.team_id union select date_format(m.match_date, \"%d/%c/%Y\") as match_date, m.match_date, 'AWAY' as 'Home/Away', concat('vs ',t.team_name) as lawan, concat(m.goal_home,' - ',m.goal_away) as score from `match` m, team t where m.team_away='"+timID+"' and m.team_home=t.team_id order by 2 desc limit 5;";
+            sqlCommand = new MySqlCommand(sqlQuery, sqlConnect);
+            sqlAdapter = new MySqlDataAdapter(sqlCommand);
+            DataTable dtLoadView = new DataTable();
+            sqlAdapter.Fill(dtLoadView);
+            dGVMatch.DataSource = dtLoadView;
+            dGVMatch.Columns.RemoveAt(1);
+
+
         }
 
         private void buttonFirst_Click(object sender, EventArgs e)
